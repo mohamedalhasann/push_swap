@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/10/29 02:06:02 by mohamed          ###   ########.fr       */
+/*   Updated: 2025/10/29 15:47:47 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<stdio.h>
-#include"push_swap_h.c"
+#include"push_swap.h"
 
 void store_input(int argc, char **argv, t_stack *a)
 {
@@ -120,15 +120,58 @@ void convert_toindexes(t_stack *stack)
     }
     free(arr);
 }
-void    my_sort(t_stack *stack)
+int max_instack(t_stack *stack)
 {
-    t_stack b;
-    int size;
+    t_list *node;
+    int max;
 
-    b.top = NULL;
-    b.size = 0;
-    size = stack->size;
+    node = stack->top;
+    max = *(int *)node->content;
+    while (node)
+    {
+        if(*(int *)node->content > max)
+            max = *(int *)node->content;
+        node = node->next;
+    }
+    return (max);   
+}
+
+int maxbits(int n)
+{
+    int max;
+
+    max = 0;
+    while((n >> max) != 0) //?
+        max++;
+    return (max);
+}
+void    my_sort(t_stack *stack_a,t_stack *stack_b)
+{
+    int size;
+    int bit;
+    int maxbit;
+    int maxnum;
+    int i;
     
+    maxnum = max_instack(stack_a);
+    maxbit = maxbits(maxnum);
+    bit = 0;
+    while (bit < maxbit)
+    {
+        i = 0;
+        size = stack_a -> size;
+        while (i < size)
+        {
+            if ((*(int *)stack_a->top->content >> bit) & 1)
+                rotate(stack_a);
+            else 
+                push(stack_a ,stack_b);
+            i++;
+        }
+        while(stack_b->size > 0)
+            push(stack_b,stack_a);
+        bit++;
+    }
 }
 int main(int argc, char **argv)
 {
@@ -137,10 +180,12 @@ int main(int argc, char **argv)
 
     a.top = NULL;
     a.size = 0;
+    b.top = NULL;
+    b.size = 0;
 
     store_input(argc, argv, &a);
     convert_toindexes(&a);
-    my_sort(&a);
+    my_sort(&a,&b);
     printstack(&a);
     // free_all(&a, &b);
     return (0);

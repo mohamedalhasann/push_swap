@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   myrules.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:13:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/10/26 22:49:50 by mohamed          ###   ########.fr       */
+/*   Updated: 2025/10/29 14:44:27 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"push_swap_h.c"
+#include"push_swap.h"
 #include"libft/libft.h"
 #include <stdlib.h>
 #include <unistd.h>
