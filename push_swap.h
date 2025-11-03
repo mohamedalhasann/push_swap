@@ -6,7 +6,7 @@
 /*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:19:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/10/23 20:20:57 by mohamed          ###   ########.fr       */
+/*   Updated: 2025/11/01 22:33:29 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ typedef struct s_stack
 }	t_stack;
 
 void	swap(t_stack *stack);
-void	push(t_stack *src, t_stack *dest);
-void	rotate(t_stack *stack);
+char	*rotate(t_stack *stack);
 void	reverse_rotate(t_stack *stack);
+char	*push_to_b(t_stack *src, t_stack *dest);
+char	*push_to_a(t_stack *src, t_stack *dest);
 
 #endif

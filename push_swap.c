@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/10/29 15:47:47 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/01 22:58:44 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ void store_input(int argc, char **argv, t_stack *a)
     }
 }
 
-void    sort_stack(t_stack *a,t_stack *b)
-{
-    
-}
 void    printstack(t_stack  *stack)
 {
     t_list *node;
@@ -81,33 +77,42 @@ void sort_array(int *arr, int size)
         i++;
     }
 }
-
-void convert_toindexes(t_stack *stack)
+int *stacktoarray(t_stack *stack, int size)
 {
-    int i;
-    int size;
     int *arr;
-    t_list *node;
-    
-    i = 0;
-    size = stack->size;
-    node = stack->top;
+    int i;
+    t_list  *node;
+
+    if (!stack || size <= 0)
+        return (NULL);
     arr = malloc(sizeof(int) * size);
     if(!arr)
-        return;
-    while (i < size && node)
+        return (NULL);
+    node = stack->top;
+    i = 0;
+    while (node && (i < size))
     {
         arr[i] = *(int *)(node->content);
         node = node->next;
         i++;
     }
-    sort_array(arr,size);
-    i = 0;
+    return (arr);
+}
+void convert_toindexes(t_stack *stack)
+{
+    int j;
+    int *arr;
+    t_list *node;
+    
+    if(!stack)
+        return ;
+    arr = stacktoarray(stack,stack->size);    
+    sort_array(arr,stack->size);
     node = stack->top;
     while (node)
     {
         int j = 0;
-        while (j < size)
+        while (j < stack->size)
         {
             if (*(int *)node->content == arr[j])
             {
@@ -136,42 +141,44 @@ int max_instack(t_stack *stack)
     return (max);   
 }
 
-int maxbits(int n)
+int bitsnum(int n)
 {
     int max;
 
     max = 0;
-    while((n >> max) != 0) //?
+    while((n >> max) != 0)
         max++;
     return (max);
 }
-void    my_sort(t_stack *stack_a,t_stack *stack_b)
+char    *my_sort(t_stack *stack_a,t_stack *stack_b)
 {
     int size;
     int bit;
-    int maxbit;
-    int maxnum;
     int i;
+    char    *result;
     
-    maxnum = max_instack(stack_a);
-    maxbit = maxbits(maxnum);
+    if (!stack_a || !*stack_a || stack_a->size < 2)
+        return;
     bit = 0;
-    while (bit < maxbit)
+    result = malloc(10000); 
+    result[0] = '\0';
+    while (bit < bitsnum(max_instack(stack_a)))
     {
         i = 0;
         size = stack_a -> size;
         while (i < size)
         {
             if ((*(int *)stack_a->top->content >> bit) & 1)
-                rotate(stack_a);
+                strcat(result,rotate(stack_a)
             else 
-                push(stack_a ,stack_b);
+                strcat(result,push_to_b(stack_a ,stack_b));
             i++;
         }
         while(stack_b->size > 0)
-            push(stack_b,stack_a);
+            strcat(result,push_to_a(stack_b,stack_a));
         bit++;
     }
+    return (result);
 }
 int main(int argc, char **argv)
 {
@@ -185,8 +192,8 @@ int main(int argc, char **argv)
 
     store_input(argc, argv, &a);
     convert_toindexes(&a);
-    my_sort(&a,&b);
-    printstack(&a);
+    printf("%s",my_sort(&a,&b));
+    // printstack(&a);
     // free_all(&a, &b);
     return (0);
 }

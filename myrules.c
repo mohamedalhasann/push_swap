@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myrules.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:13:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/10/29 14:44:27 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/01 22:34:27 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,45 @@ void	swap(t_stack *stack)
 	second->next = first;
 	stack->top = second;
 }
-void	push(t_stack *src, t_stack *dest)
+char	*push_to_b(t_stack *src, t_stack *dest)
 {
 	t_list	*node;
 
 	if (!src || !src->top)
-		return ;
+		return NULL;
 	node = src->top;
 	src->top = src->top->next;
 	node->next = NULL;
 	ft_lstadd_front(&dest->top, node);
 	dest->size++;
 	src->size--;
+	return ("pb\n");
 }
-void	rotate(t_stack *stack)
+char	*push_to_a(t_stack *src, t_stack *dest)
+{
+	t_list	*node;
+
+	if (!src || !src->top)
+		return NULL;
+	node = src->top;
+	src->top = src->top->next;
+	node->next = NULL;
+	ft_lstadd_front(&dest->top, node);
+	dest->size++;
+	src->size--;
+	return ("pa\n");
+}
+char	*rotate(t_stack *stack)
 {
 	t_list	*first;
 
 	if (!stack || !stack->top || !stack->top->next)
-		return ;
+		return NULL;
 	first = stack->top;
 	stack->top = stack->top->next;
 	first->next = NULL;
 	ft_lstadd_back(&stack->top, first);
+	return ("ra\n");
 }
 void	reverse_rotate(t_stack *stack)
 {
