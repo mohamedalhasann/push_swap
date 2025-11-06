@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   myrules.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:13:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/01 22:34:27 by mohamed          ###   ########.fr       */
+/*   Updated: 2025/11/05 14:02:29 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	swap(t_stack *stack)
 	first->next = second->next;
 	second->next = first;
 	stack->top = second;
+	
 }
 char	*push_to_b(t_stack *src, t_stack *dest)
 {
@@ -55,17 +56,16 @@ char	*push_to_a(t_stack *src, t_stack *dest)
 	src->size--;
 	return ("pa\n");
 }
-char	*rotate(t_stack *stack)
+void	rotate(t_stack *stack)
 {
 	t_list	*first;
 
 	if (!stack || !stack->top || !stack->top->next)
-		return NULL;
+		return ;
 	first = stack->top;
 	stack->top = stack->top->next;
 	first->next = NULL;
 	ft_lstadd_back(&stack->top, first);
-	return ("ra\n");
 }
 void	reverse_rotate(t_stack *stack)
 {

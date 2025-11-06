@@ -6,7 +6,7 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/03 17:50:24 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:02:36 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ static void store_input(int argc, char **argv, t_stack *a)
         i++;
     }
 }
+void free_stack(t_stack *stack)
+{
+    t_list *current = stack->top;
+    t_list *tmp;
+
+    while (current)
+    {
+        tmp = current->next;
+        free(current->content); 
+        free(current);
+        current = tmp;
+    }
+    stack->top = NULL;
+    stack->size = 0;
+}
+
 
 static void    printstack(t_stack  *stack)
 {
@@ -120,17 +136,14 @@ static int convert_toindexes(t_stack *stack)
     int *arr;
     t_list *node;
     
-    if(!stack)
-        return 0;
-    arr = stacktoarray(stack,stack->size);    
-    if(!isSorted(arr,stack->size))
-        sort_array(arr,stack->size);
-    else
+    if(!stack || stack -> size < 2)
         return (0);
+    arr = stacktoarray(stack,stack->size);
+    sort_array(arr, stack->size); 
     node = stack->top;
     while (node)
     {
-        int j = 0;
+        j = 0;
         while (j < stack->size)
         {
             if (*(int *)node->content == arr[j])
@@ -174,38 +187,59 @@ static void    my_sort(t_stack *stack_a,t_stack *stack_b)
 {
     int bit;
     int i;
+    int size;
     
-    if (!stack_a || stack_a->size < 2)
-        return;
     bit = 0;
     while (bit < bitsnum(max_instack(stack_a)))
     {
         i = 0;
-        while (i < stack_a->size)
+        size = stack_a->size;
+        while (i < size)
         {
-            if (!isSorted(stacktoarray(stack_a,stack_a->size),stack_a->size))
-            {
-                if ((*(int *)stack_a->top->content >> bit) & 1)
-                    printf("%s",rotate(stack_a));
-                else
-                    printf("%s",push_to_b(stack_a ,stack_b));
-                i++;
-            }
-            else
-                break;
+        if ((*(int *)stack_a->top->content >> bit) & 1)
+        {
+            rotate(stack_a);
+            write(1,"ra\n",3);
         }
+        else
+        {
+            push_to_b(stack_a ,stack_b);
+            write(1,"pb\n",3);
+        }
+        i++;
+    }
         while(stack_b->size > 0)
-            printf("%s",push_to_a(stack_b,stack_a));
+        {
+            push_to_a(stack_b,stack_a);
+            write(1,"pa\n",3);
+        }
         bit++;
     }
 }
 
+
 void    runProgram(t_stack *a , t_stack *b,int argc , char **argv)
 {
-    store_input(argc,argv,a);
-    if(!convert_toindexes(a))
+    store_input(argc,argv,a);  
+    if (isSorted(stacktoarray(a, a->size), a->size))
+    {
+        free_stack(a);
         return;
-    my_sort(a,b);    
+    }
+    if( a-> size > 5)
+    {
+        if(!convert_toindexes(a))
+            return;
+    }
+    if(a -> size > 5)
+        my_sort(a,b);
+    else if (a -> size == 5)
+        five_sort(a,b);
+    else if (a -> size == 4)
+        four_sort(a,b);
+    else if (a -> size <= 3)
+        three_or_less(a);
+    free_stack(a);
 }
 int main(int argc, char **argv)
 {
@@ -216,9 +250,10 @@ int main(int argc, char **argv)
     a.size = 0;
     b.top = NULL;
     b.size = 0;
-    runProgram(&a,&b,argc,argv);
+        runProgram(&a,&b,argc,argv);
     
     // printstack(&a);
     // free_all(&a, &b);
     return (0);
 }
+
