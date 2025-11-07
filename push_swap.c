@@ -3,72 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/06 18:02:36 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/07 23:44:14 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<stdio.h>
 #include"push_swap.h"
 
-static void store_input(int argc, char **argv, t_stack *a)
+int free_with_return(int *value)
 {
-    int i;
-    t_list *node_a;
-    int *value;
+    free(value);
+    return (0);
+}
+static int	store_input(int argc, char **argv, t_stack *a)
+{
+	int		i;
+	int		*value;
+	t_list	*node_a;
 
-    if (argc < 2)
+	if (argc < 2)
+		return (0);
+	a->top = NULL;
+	a->size = 0;
+	i = 1;
+	while (i < argc)
+	{
+		value = malloc(sizeof(int));
+		if (!value)
+			return (0);
+		*value = ft_atoi(argv[i]);
+		node_a = ft_lstnew(value);
+		if (!node_a)
+            return(free_with_return(value));
+		ft_lstadd_back(&a->top, node_a);
+		a->size++;
+		i++;
+	}
+	return (a->size);
+}
+
+void	free_stack(t_stack *a)
+{
+    t_list *tmp;
+    t_list *next;
+
+    tmp = a->top;
+    while (tmp)
     {
-        printf("no arguments passed\n");
-        return;
+        next = tmp->next;
+        free(tmp->content);
+        free(tmp);
+        tmp = next;
     }
     a->top = NULL;
     a->size = 0;
-    i = 1;
-    while (i < argc)
-    {
-        value = malloc(sizeof(int));
-        if (!value)
-            return;
-        *value = ft_atoi(argv[i]); 
-        node_a = ft_lstnew(value); 
-        if (!node_a)
-            return;
-        ft_lstadd_back(&a->top, node_a);
-        a->size++;
-        i++;
-    }
 }
-void free_stack(t_stack *stack)
+void	free_all(t_stack *a, t_stack *b)
 {
-    t_list *current = stack->top;
     t_list *tmp;
+    t_list *next;
 
-    while (current)
+    tmp = a->top;
+    while (tmp)
     {
-        tmp = current->next;
-        free(current->content); 
-        free(current);
-        current = tmp;
+        next = tmp->next;
+        free(tmp->content);
+        free(tmp);
+        tmp = next;
     }
-    stack->top = NULL;
-    stack->size = 0;
-}
-
-
-static void    printstack(t_stack  *stack)
-{
-    t_list *node;
-
-    node = stack -> top;
-    while (node)
+    a->top = NULL;
+    a->size = 0;
+    tmp = b->top;
+    while (tmp)
     {
-        printf("%d ",*(int *)(node -> content));
-        node = node -> next;
+        next = tmp->next;
+        free(tmp->content);
+        free(tmp);
+        tmp = next;
     }
-    printf("\n");
+    b->top = NULL;
+    b->size = 0;
 }
 static void sort_array(int *arr, int size)
 {
@@ -113,21 +130,6 @@ static int *stacktoarray(t_stack *stack, int size)
         i++;
     }
     return (arr);
-}
-static int isSorted(int *arr, int size)
-{
-    int i;
-
-    if (!arr || size <= 1)
-        return (1);
-    i = 0;
-    while (i < size - 1)
-    {
-        if (arr[i] > arr[i + 1])
-            return (0);
-        i++;
-    }
-    return (1);
 }
 
 static int convert_toindexes(t_stack *stack)
@@ -202,45 +204,37 @@ static void    my_sort(t_stack *stack_a,t_stack *stack_b)
             write(1,"ra\n",3);
         }
         else
-        {
-            push_to_b(stack_a ,stack_b);
-            write(1,"pb\n",3);
-        }
+            write(1,push_to_b(stack_a ,stack_b),3);
         i++;
     }
         while(stack_b->size > 0)
-        {
-            push_to_a(stack_b,stack_a);
-            write(1,"pa\n",3);
-        }
+            write(1,push_to_a(stack_b,stack_a),3);
         bit++;
     }
 }
 
-
 void    runProgram(t_stack *a , t_stack *b,int argc , char **argv)
 {
-    store_input(argc,argv,a);  
+    if(!store_input(argc,argv,a))
+        return(free_all(a,b));
     if (isSorted(stacktoarray(a, a->size), a->size))
-    {
-        free_stack(a);
-        return;
-    }
-    if( a-> size > 5)
-    {
-        if(!convert_toindexes(a))
-            return;
-    }
+        return(free_all(a,b));
     if(a -> size > 5)
-        my_sort(a,b);
+    {    
+        if(!convert_toindexes(a))
+            return(free_all(a,b));
+        else
+            my_sort(a,b);
+    }
     else if (a -> size == 5)
         five_sort(a,b);
     else if (a -> size == 4)
         four_sort(a,b);
     else if (a -> size <= 3)
         three_or_less(a);
-    free_stack(a);
+    free_all(a,b);
 }
+
 int main(int argc, char **argv)
 {
     t_stack a;
@@ -250,10 +244,7 @@ int main(int argc, char **argv)
     a.size = 0;
     b.top = NULL;
     b.size = 0;
-        runProgram(&a,&b,argc,argv);
-    
-    // printstack(&a);
-    // free_all(&a, &b);
+    runProgram(&a,&b,argc,argv);
     return (0);
 }
 

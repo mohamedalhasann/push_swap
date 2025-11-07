@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 13:33:35 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/05 17:55:40 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/07 23:08:19 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,26 @@ int min_instack(t_stack *stack)
     }
     return (min);
 }
-
 int isSorted(int *arr, int size)
 {
-    int i = 0;
+    int i;
+
+    if (!arr || size <= 1)
+    {
+        free(arr);
+        return (1);
+    }
+    i = 0;
     while (i < size - 1)
     {
         if (arr[i] > arr[i + 1])
+        {
+            free(arr);
             return (0);
+        }
         i++;
     }
+    free(arr);
     return (1);
 }
 static int *stacktoarray(t_stack *stack, int size)

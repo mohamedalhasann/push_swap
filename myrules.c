@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   myrules.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:13:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/05 14:02:29 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/07 23:41:10 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"push_swap.h"
-#include"libft/libft.h"
-#include <stdlib.h>
-#include <unistd.h>
+
 void	swap(t_stack *stack)
 {
 	t_list	*first;

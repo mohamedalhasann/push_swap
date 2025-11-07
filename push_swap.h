@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:19:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/05 14:02:36 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/07 23:08:56 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_stack
 	t_list *top;
 	int size;
 }	t_stack;
-
+int isSorted(int *arr, int size);
 void	swap(t_stack *stack);
 void	rotate(t_stack *stack);
 void	reverse_rotate(t_stack *stack);
