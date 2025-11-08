@@ -6,7 +6,7 @@
 /*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 13:33:35 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/07 23:08:19 by mohamed          ###   ########.fr       */
+/*   Updated: 2025/11/08 10:45:50 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static int max_instack(t_stack *stack)
 {
     t_list *node = stack->top;
-    int max = *(int *)node->content;
+    int max =  node->content;
 
     while (node)
     {
-        if (*(int *)node->content > max)
-            max = *(int *)node->content;
+        if (node->content > max)
+            max = node->content;
         node = node->next;
     }
     return (max);
@@ -29,12 +29,12 @@ static int max_instack(t_stack *stack)
 int min_instack(t_stack *stack)
 {
     t_list *node = stack->top;
-    int min = *(int *)node->content;
+    int min =  node->content;
 
     while (node)
     {
-        if (*(int *)node->content < min)
-            min = *(int *)node->content;
+        if ( node->content < min)
+            min =  node->content;
         node = node->next;
     }
     return (min);
@@ -76,7 +76,7 @@ static int *stacktoarray(t_stack *stack, int size)
     i = 0;
     while (node && (i < size))
     {
-        arr[i] = *(int *)(node->content);
+        arr[i] =  (node->content);
         node = node->next;
         i++;
     }
@@ -86,18 +86,18 @@ void three_or_less(t_stack *a)
 {
     if (isSorted(stacktoarray(a,a->size),a->size))
         return;
-    if (*(int *)a->top->content == min_instack(a))
+    if ( a->top->content == min_instack(a))
     {
         swap(a);
         write(1,"sa\n",3);
         rotate(a);
         write(1,"ra\n",3);
     }
-    else if (*(int *)a->top->content == max_instack(a))
+    else if ( a->top->content == max_instack(a))
     {
         rotate(a);
         write(1,"ra\n",3);
-        if (*(int *)a->top->content > *(int *)a->top->next->content)
+        if ( a->top->content >  a->top->next->content)
         {    
             swap(a);
             write(1,"sa\n",3);
@@ -105,7 +105,7 @@ void three_or_less(t_stack *a)
     }
     else
     {
-        if (*(int *)a->top->content > *(int *)a->top->next->content)
+        if ( a->top->content >  a->top->next->content)
         {
             swap(a);
             write(1,"sa\n",3);
@@ -120,7 +120,7 @@ void three_or_less(t_stack *a)
 
 void four_sort(t_stack *a, t_stack *b)
 {
-    while (*(int *)a->top->content != min_instack(a))
+    while ( a->top->content != min_instack(a))
     {
         rotate(a);
         write(1, "ra\n", 3);
@@ -134,14 +134,14 @@ void four_sort(t_stack *a, t_stack *b)
 
 void five_sort(t_stack *a, t_stack *b)
 {
-    while (*(int *)a->top->content != min_instack(a))
+    while ( a->top->content != min_instack(a))
     {
         rotate(a);
         write(1, "ra\n", 3);
     }
     push_to_b(a, b);
     write(1, "pb\n", 3);
-    while (*(int *)a->top->content != min_instack(a))
+    while ( a->top->content != min_instack(a))
     {
         rotate(a);
         write(1, "ra\n", 3);

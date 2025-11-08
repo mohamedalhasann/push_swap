@@ -6,7 +6,7 @@
 /*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/07 23:44:14 by mohamed          ###   ########.fr       */
+/*   Updated: 2025/11/08 10:56:52 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,20 @@ int free_with_return(int *value)
     free(value);
     return (0);
 }
+t_list	*ft_newnode(int content)
+{
+	t_list	*newnode;
+
+	newnode = malloc(sizeof(t_list));
+	if (!newnode)
+		return (NULL);
+	newnode->content = content;
+	newnode->next = NULL;
+	return (newnode);
+}
 static int	store_input(int argc, char **argv, t_stack *a)
 {
 	int		i;
-	int		*value;
 	t_list	*node_a;
 
 	if (argc < 2)
@@ -31,20 +41,15 @@ static int	store_input(int argc, char **argv, t_stack *a)
 	i = 1;
 	while (i < argc)
 	{
-		value = malloc(sizeof(int));
-		if (!value)
-			return (0);
-		*value = ft_atoi(argv[i]);
-		node_a = ft_lstnew(value);
+		node_a = ft_newnode((int)ft_atoi(argv[i]));
 		if (!node_a)
-            return(free_with_return(value));
+            return(0);
 		ft_lstadd_back(&a->top, node_a);
 		a->size++;
 		i++;
 	}
 	return (a->size);
 }
-
 void	free_stack(t_stack *a)
 {
     t_list *tmp;
@@ -54,7 +59,6 @@ void	free_stack(t_stack *a)
     while (tmp)
     {
         next = tmp->next;
-        free(tmp->content);
         free(tmp);
         tmp = next;
     }
@@ -70,7 +74,6 @@ void	free_all(t_stack *a, t_stack *b)
     while (tmp)
     {
         next = tmp->next;
-        free(tmp->content);
         free(tmp);
         tmp = next;
     }
@@ -80,7 +83,6 @@ void	free_all(t_stack *a, t_stack *b)
     while (tmp)
     {
         next = tmp->next;
-        free(tmp->content);
         free(tmp);
         tmp = next;
     }
@@ -125,7 +127,7 @@ static int *stacktoarray(t_stack *stack, int size)
     i = 0;
     while (node && (i < size))
     {
-        arr[i] = *(int *)(node->content);
+        arr[i] =  (node->content);
         node = node->next;
         i++;
     }
@@ -148,9 +150,9 @@ static int convert_toindexes(t_stack *stack)
         j = 0;
         while (j < stack->size)
         {
-            if (*(int *)node->content == arr[j])
+            if ( node->content == arr[j])
             {
-                *(int *)node->content = j;
+                 node->content = j;
                 break;
             }
         j++;
@@ -166,11 +168,11 @@ static int max_instack(t_stack *stack)
     int max;
 
     node = stack->top;
-    max = *(int *)node->content;
+    max =  node->content;
     while (node)
     {
-        if(*(int *)node->content > max)
-            max = *(int *)node->content;
+        if( node->content > max)
+            max =  node->content;
         node = node->next;
     }
     return (max);   
@@ -198,7 +200,7 @@ static void    my_sort(t_stack *stack_a,t_stack *stack_b)
         size = stack_a->size;
         while (i < size)
         {
-        if ((*(int *)stack_a->top->content >> bit) & 1)
+        if (( stack_a->top->content >> bit) & 1)
         {
             rotate(stack_a);
             write(1,"ra\n",3);
