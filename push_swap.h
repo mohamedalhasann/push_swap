@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:19:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/13 16:56:39 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/14 01:14:26 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_newnode(int content);
 int		free_all(t_stack *a, t_stack *b);
 int		free_with_return(int *value);
+int		free_2d_with_return (char **value);
 void	freeptr(char **ptr);
+int		freeptr_2(char **ptr, int j);
 int		ft_atoi(const char *nptr);
 char	**ft_split(char const *s, char c);
 int isvalidinput(char **argv);

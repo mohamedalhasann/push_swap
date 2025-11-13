@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputvalidation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 16:35:43 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/13 16:55:29 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/14 01:16:37 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int isvalidinput(char **argv)
 				j++;
 			else
 			{
-				freeptr(argv);
 				return (0);
 			}
 		}

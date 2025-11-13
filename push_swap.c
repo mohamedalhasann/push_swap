@@ -3,51 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/13 17:00:29 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/14 01:32:21 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static int push_input(char **splitted_argv, t_stack *a)
+{
+	int	i;
+	t_list	*node;
+
+	i = 0;
+	while (splitted_argv[i])
+	{
+		node = malloc(sizeof(t_list));
+		if (!node)
+			return (free_2d_with_return(splitted_argv));
+		node->content = ft_atoi(splitted_argv[i]);
+		if (node -> content >= 2147483647 || node -> content <= -2147483648)
+		{
+			free(node);
+			return (free_2d_with_return(splitted_argv));
+		}
+		node->next = NULL;
+		ft_lstadd_back(&a->top, node);
+		a->size++;
+		i++;
+	}
+	return (1);
+}
 static int	store_input(int argc, char **argv, t_stack *a)
 {
-	char	**split;
-	int		i;
+	char	**splitted_argv;
 	int		j;
-	t_list	*node;
 
 	if (argc < 2)
 		return (0);
 	j = 1;
 	while (j < argc)
 	{
-		split = ft_split(argv[j], ' ');
-		if (!split)
+		splitted_argv = ft_split(argv[j], ' ');
+		if (!splitted_argv)
 			return (0);
-		if (!isvalidinput(split))
+		if (!isvalidinput(splitted_argv))
+			return (free_2d_with_return(splitted_argv));
+		if (push_input(splitted_argv,a))
+			freeptr(splitted_argv);
+		else
 			return (0);
-		i = 0;
-		while (split[i])
-		{
-			node = malloc(sizeof(t_list));
-			if (!node)
-				return (0);
-			node->content = ft_atoi(split[i]);
-			if (node -> content >= 2147483647 || node -> content <= -2147483648)
-			{
-				free(node);
-				freeptr(split);
-				return (0);
-			}
-			node->next = NULL;
-			ft_lstadd_back(&a->top, node);
-			a->size++;
-			i++;
-		}
-		freeptr(split);
 		j++;
 	}
 	return (a->size);
