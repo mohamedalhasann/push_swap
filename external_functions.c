@@ -6,7 +6,7 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 12:45:31 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/12 11:17:55 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:27:56 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	temp->next = new;
 }
 
-int	ft_atoi(const char *nptr)
+long	ft_atoi(const char *nptr)
 {
-	int	sign;
-	int	result;
+	int		sign;
+	long	result;
 
 	sign = 1;
 	result = 0;

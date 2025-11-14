@@ -6,7 +6,7 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 13:40:39 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/13 13:48:58 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:31:19 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ static char	*wordspliter(char const *s, char c)
 	while (s[i] && s[i] != c)
 	{
 		ptr[i] = s[i];
-		
 		i++;
 	}
 	ptr[i] = '\0';
 	return (ptr);
 }
+
 static char	**free_ptr(char **ptr, int j)
 {
 	int	i;

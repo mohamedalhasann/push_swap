@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/14 01:32:21 by mohamed          ###   ########.fr       */
+/*   Updated: 2025/11/14 15:31:30 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int push_input(char **splitted_argv, t_stack *a)
+static int	push_input(char **splitted_argv, t_stack *a)
 {
-	int	i;
+	int		i;
 	t_list	*node;
 
 	i = 0;
@@ -24,7 +24,7 @@ static int push_input(char **splitted_argv, t_stack *a)
 		if (!node)
 			return (free_2d_with_return(splitted_argv));
 		node->content = ft_atoi(splitted_argv[i]);
-		if (node -> content >= 2147483647 || node -> content <= -2147483648)
+		if (node->content > 2147483647 || node->content < -2147483648)
 		{
 			free(node);
 			return (free_2d_with_return(splitted_argv));
@@ -36,6 +36,7 @@ static int push_input(char **splitted_argv, t_stack *a)
 	}
 	return (1);
 }
+
 static int	store_input(int argc, char **argv, t_stack *a)
 {
 	char	**splitted_argv;
@@ -51,7 +52,7 @@ static int	store_input(int argc, char **argv, t_stack *a)
 			return (0);
 		if (!isvalidinput(splitted_argv))
 			return (free_2d_with_return(splitted_argv));
-		if (push_input(splitted_argv,a))
+		if (push_input(splitted_argv, a))
 			freeptr(splitted_argv);
 		else
 			return (0);
@@ -124,9 +125,9 @@ int	main(int argc, char **argv)
 	b.top = NULL;
 	b.size = 0;
 	if (!store_input(argc, argv, &a))
-		return (free_all(&a, &b));
-	if (issorted(stacktoarray(&a, a.size), a.size))
-		return (free_all(&a, &b));
+		return (free_all_with_error(&a, &b));
+	if (issorted(stacktoarray(&a, a.size), a.size) || isinputduplicated(&a))
+		return (free_all_with_error(&a, &b));
 	if (a.size > 5)
 	{
 		if (!convert_toindexes(&a))
