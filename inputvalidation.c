@@ -6,7 +6,7 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 16:35:43 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/14 14:55:34 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/14 19:46:25 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	isvalidinput(char **argv)
 	while (argv[i])
 	{
 		j = 0;
-		if (argv[i][j] == '-')
+		if (argv[i][j] == '-' || argv[i][j] == '+')
 			if (argv[i][j + 1])
 				j++;
 		while (argv[i][j])
@@ -57,3 +57,8 @@ int	isinputduplicated(t_stack *a)
 	}
 	return (0);
 }
+
+// int	isinputvalid(int argc, char **argv , t_stack *a, int a_size)
+// {
+	
+// }
