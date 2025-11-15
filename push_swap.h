@@ -6,7 +6,7 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:19:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/14 19:00:45 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/15 11:49:25 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ long				ft_atoi(const char *nptr);
 char				**ft_split(char const *s, char c);
 int					isvalidinput(char **argv);
 int					isinputduplicated(t_stack *a);
+void				minisort(t_stack *a, t_stack *b);
 int					free_all_with_error(t_stack *a, t_stack *b);
 #endif

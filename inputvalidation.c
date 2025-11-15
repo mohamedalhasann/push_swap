@@ -6,7 +6,7 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 16:35:43 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/14 19:46:25 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/15 14:15:46 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,3 @@ int	isinputduplicated(t_stack *a)
 	}
 	return (0);
 }
-
-// int	isinputvalid(int argc, char **argv , t_stack *a, int a_size)
-// {
-	
-// }

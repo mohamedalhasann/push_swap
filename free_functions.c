@@ -6,7 +6,7 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 14:54:17 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/14 15:30:58 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/15 17:16:33 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	free_all(t_stack *a, t_stack *b)
 
 int	free_all_with_error(t_stack *a, t_stack *b)
 {
-	write(1, "Error\n", 6);
+	write(2, "Error\n", 6);
 	free_all(a, b);
 	return (0);
 }

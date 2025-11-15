@@ -6,7 +6,7 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 13:33:35 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/14 19:50:27 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/15 14:16:20 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,19 @@ void	five_sort(t_stack *a, t_stack *b)
 		rotate(a, 'a');
 	write(1, push_to_b(a, b), 3);
 	while (a->top->content != min_instack(a))
-		rotate(a, 'a');
+		reverse_rotate(a, 'a');
 	write(1, push_to_b(a, b), 3);
 	three_or_less(a);
 	write(1, push_to_a(b, a), 3);
 	write(1, push_to_a(b, a), 3);
 }
 
-void	minisort(t_stack *a , t_stack *b)
+void	minisort(t_stack *a, t_stack *b)
 {
-	if (a -> size == 5)
-		five_sort(&a, &b);
-	else if (a -> size == 4)
-		four_sort(&a, &b);
-	else if (a -> size <= 3)
-		three_or_less(&a);
+	if (a->size == 5)
+		five_sort(a, b);
+	else if (a->size == 4)
+		four_sort(a, b);
+	else if (a->size <= 3)
+		three_or_less(a);
 }

@@ -6,18 +6,18 @@
 /*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/14 19:49:37 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/15 17:17:06 by malhassa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 static int	push_input(char **splitted_argv, t_stack *a)
 {
-	int		i;
-	t_list	*node;
+	int			i;
+	t_list		*node;
 	long long	content;
+
 	i = 0;
 	while (splitted_argv[i])
 	{
@@ -28,7 +28,7 @@ static int	push_input(char **splitted_argv, t_stack *a)
 		node->content = content;
 		if (content > 2147483647 || content < -2147483648)
 		{
-			write(1,"Error\n",6);
+			write(2, "Error\n", 6);
 			free(node);
 			return (free_2d_with_return(splitted_argv));
 		}
@@ -131,8 +131,8 @@ int	main(int argc, char **argv)
 		return (free_all(&a, &b));
 	if (issorted(stacktoarray(&a, a.size), a.size))
 		return (free_all(&a, &b));
-	if(isinputduplicated(&a))
-		return (free_all_with_error(&a,&b));
+	if (isinputduplicated(&a))
+		return (free_all_with_error(&a, &b));
 	if (a.size > 5)
 	{
 		if (!convert_toindexes(&a))
@@ -141,10 +141,6 @@ int	main(int argc, char **argv)
 			my_sort(&a, &b);
 	}
 	else if (a.size <= 5)
-		mini_sort(&a, &b);
-	else if (a.size == 4)
-		four_sort(&a, &b);
-	else if (a.size <= 3)
-		three_or_less(&a);
+		minisort(&a, &b);
 	return (free_all(&a, &b));
 }
