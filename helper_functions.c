@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 14:52:12 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/14 15:19:03 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/17 01:01:56 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	issorted(int *arr, int size)
 
 	if (!arr || size <= 1)
 	{
-		free(arr);
+		if (arr) // edit?
+			free(arr);
 		return (1);
 	}
 	i = 0;
