@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:19:29 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/15 11:49:25 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/16 14:32:28 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int					freeptr_2(char **ptr, int j);
 long				ft_atoi(const char *nptr);
 char				**ft_split(char const *s, char c);
 int					isvalidinput(char **argv);
-int					isinputduplicated(t_stack *a);
+int					isinputduplicated(int *arr, int size);
 void				minisort(t_stack *a, t_stack *b);
 int					free_all_with_error(t_stack *a, t_stack *b);
 #endif

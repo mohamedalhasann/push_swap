@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputvalidation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 16:35:43 by malhassa          #+#    #+#             */
-/*   Updated: 2025/11/15 14:15:46 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/16 14:32:08 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,23 @@ int	isvalidinput(char **argv)
 	return (1);
 }
 
-int	isinputduplicated(t_stack *a)
+int	isinputduplicated(int *arr, int size)
 {
-	t_list	*cur;
-	t_list	*check;
+    int i;
+    int j;
 
-	cur = a->top;
-	while (cur)
-	{
-		check = cur->next;
-		while (check)
-		{
-			if (check->content == cur->content)
-				return (1);
-			check = check->next;
-		}
-		cur = cur->next;
-	}
-	return (0);
+    i = 0;
+    while (i < size)
+    {
+        j = i + 1;
+        while (j < size)
+        {
+            if (arr[i] == arr[j])
+                return (1);
+            j++;
+        }
+        i++;
+    }
+    return (0);
 }
+

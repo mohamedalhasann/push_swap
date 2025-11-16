@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malhassa <malhassa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mohamed <mohamed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 22:42:30 by mohamed           #+#    #+#             */
-/*   Updated: 2025/11/15 17:17:06 by malhassa         ###   ########.fr       */
+/*   Updated: 2025/11/16 14:45:52 by mohamed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static int	store_input(int argc, char **argv, t_stack *a)
 		if (!splitted_argv)
 			return (0);
 		if (!isvalidinput(splitted_argv))
+		{
+			write(2,"Error\n",6);
 			return (free_2d_with_return(splitted_argv));
+		}
 		if (push_input(splitted_argv, a))
 			freeptr(splitted_argv);
 		else
@@ -118,6 +121,7 @@ static void	my_sort(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
+                                
 int	main(int argc, char **argv)
 {
 	t_stack	a;
@@ -129,10 +133,10 @@ int	main(int argc, char **argv)
 	b.size = 0;
 	if (!store_input(argc, argv, &a))
 		return (free_all(&a, &b));
+	if (isinputduplicated(stacktoarray(&a,a.size),a.size))
+		return (free_all_with_error(&a, &b));
 	if (issorted(stacktoarray(&a, a.size), a.size))
 		return (free_all(&a, &b));
-	if (isinputduplicated(&a))
-		return (free_all_with_error(&a, &b));
 	if (a.size > 5)
 	{
 		if (!convert_toindexes(&a))
